@@ -1,4 +1,5 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
+const { schemaOptions } = require('./modelOptions')
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -11,6 +12,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false
   }
-})
+}, schemaOptions)
 
-export default mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema)

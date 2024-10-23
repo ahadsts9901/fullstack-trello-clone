@@ -1,5 +1,5 @@
-import jsonwebtoken from 'jsonwebtoken'
-import User from '../models/user.mjs'
+const jsonwebtoken = require('jsonwebtoken')
+const User = require('../models/user')
 
 const tokenDecode = (req) => {
   const bearerHeader = req.headers['authorization']
@@ -19,7 +19,7 @@ const tokenDecode = (req) => {
   }
 }
 
-export const verifyToken = async (req, res, next) => {
+exports.verifyToken = async (req, res, next) => {
   const tokenDecoded = tokenDecode(req)
   if (tokenDecoded) {
     const user = await User.findById(tokenDecoded.id)

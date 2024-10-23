@@ -1,7 +1,7 @@
-import Section from '../models/section.mjs'
-import Task from '../models/task.mjs'
+const Section = require('../models/section')
+const Task = require('../models/task')
 
-export const create = async (req, res) => {
+exports.create = async (req, res) => {
   const { boardId } = req.params
   try {
     const section = await Section.create({ board: boardId })
@@ -12,7 +12,7 @@ export const create = async (req, res) => {
   }
 }
 
-export const update = async (req, res) => {
+exports.update = async (req, res) => {
   const { sectionId } = req.params
   try {
     const section = await Section.findByIdAndUpdate(
@@ -26,7 +26,7 @@ export const update = async (req, res) => {
   }
 }
 
-export const _delete = async (req, res) => {
+exports.delete = async (req, res) => {
   const { sectionId } = req.params
   try {
     await Task.deleteMany({ section: sectionId })

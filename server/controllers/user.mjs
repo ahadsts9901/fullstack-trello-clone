@@ -1,8 +1,8 @@
-const User = require('../models/user')
-const CryptoJS = require('crypto-js')
-const jsonwebtoken = require('jsonwebtoken')
+import User from '../models/user.mjs'
+import CryptoJS from 'crypto-js'
+import jsonwebtoken from 'jsonwebtoken'
 
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
   const { password } = req.body
   try {
     req.body.password = CryptoJS.AES.encrypt(
@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
   }
 }
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   const { username, password } = req.body
   try {
     const user = await User.findOne({ username }).select('password username')

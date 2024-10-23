@@ -1,10 +1,8 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const { schemaOptions } = require('./modelOptions')
+import mongoose from 'mongoose'
 
-const boardSchema = new Schema({
+const boardSchema = new mongoose.Schema({
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
@@ -33,6 +31,6 @@ const boardSchema = new Schema({
     type: Number,
     default: 0
   }
-}, schemaOptions)
+})
 
-module.exports = mongoose.model('Board', boardSchema)
+export default mongoose.model('Board', boardSchema)

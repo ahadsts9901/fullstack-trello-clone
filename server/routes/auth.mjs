@@ -1,9 +1,11 @@
-const router = require('express').Router()
-const userController = require('../controllers/user')
-const { body } = require('express-validator')
-const validation = require('../handlers/validation')
-const tokenHandler = require('../handlers/tokenHandler')
-const User = require('../models/user')
+import { Router } from "express"
+import { register, login } from '../controllers/user.mjs'
+import { body } from 'express-validator'
+import { validate } from '../handlers/validation.mjs'
+import { verifyToken } from '../handlers/tokenHandler.mjs'
+import userModel from '../models/user.mjs'
+
+const router = Router()
 
 router.post(
   '/signup',
@@ -17,14 +19,14 @@ router.post(
     'confirmPassword must be at least 8 characters'
   ),
   body('username').custom(value => {
-    return User.findOne({ username: value }).then(user => {
+    return userModel.findOne({ username: value }).then(user => {
       if (user) {
         return Promise.reject('username already used')
       }
     })
   }),
-  validation.validate,
-  userController.register
+  validate,
+  register
 )
 
 router.post(
@@ -35,16 +37,16 @@ router.post(
   body('password').isLength({ min: 8 }).withMessage(
     'password must be at least 8 characters'
   ),
-  validation.validate,
-  userController.login
+  validate,
+  login
 )
 
 router.post(
   '/verify-token',
-  tokenHandler.verifyToken,
+  verifyToken,
   (req, res) => {
     res.status(200).json({ user: req.user })
   }
 )
 
-module.exports = router
+export default router

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node server.mjs",
+    "dev": "nodemon server.mjs"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

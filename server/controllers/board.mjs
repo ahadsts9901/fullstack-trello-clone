@@ -1,8 +1,8 @@
-const Board = require('../models/board')
-const Section = require('../models/section')
-const Task = require('../models/task')
+import Board from '../models/board.mjs'
+import Section from '../models/section.mjs'
+import Task from '../models/task.mjs'
 
-exports.create = async (req, res) => {
+export const create = async (req, res) => {
   try {
     const boardsCount = await Board.find().count()
     const board = await Board.create({
@@ -15,7 +15,7 @@ exports.create = async (req, res) => {
   }
 }
 
-exports.getAll = async (req, res) => {
+export const getAll = async (req, res) => {
   try {
     const boards = await Board.find({ user: req.user._id }).sort('-position')
     res.status(200).json(boards)
@@ -24,7 +24,7 @@ exports.getAll = async (req, res) => {
   }
 }
 
-exports.updatePosition = async (req, res) => {
+export const updatePosition = async (req, res) => {
   const { boards } = req.body
   try {
     for (const key in boards.reverse()) {
@@ -40,7 +40,7 @@ exports.updatePosition = async (req, res) => {
   }
 }
 
-exports.getOne = async (req, res) => {
+export const getOne = async (req, res) => {
   const { boardId } = req.params
   try {
     const board = await Board.findOne({ user: req.user._id, _id: boardId })
@@ -57,7 +57,7 @@ exports.getOne = async (req, res) => {
   }
 }
 
-exports.update = async (req, res) => {
+export const update = async (req, res) => {
   const { boardId } = req.params
   const { title, description, favourite } = req.body
 
@@ -96,7 +96,7 @@ exports.update = async (req, res) => {
   }
 }
 
-exports.getFavourites = async (req, res) => {
+export const getFavourites = async (req, res) => {
   try {
     const favourites = await Board.find({
       user: req.user._id,
@@ -108,7 +108,7 @@ exports.getFavourites = async (req, res) => {
   }
 }
 
-exports.updateFavouritePosition = async (req, res) => {
+export const updateFavouritePosition = async (req, res) => {
   const { boards } = req.body
   try {
     for (const key in boards.reverse()) {
@@ -124,7 +124,7 @@ exports.updateFavouritePosition = async (req, res) => {
   }
 }
 
-exports.delete = async (req, res) => {
+export const _delete = async (req, res) => {
   const { boardId } = req.params
   try {
     const sections = await Section.find({ board: boardId })

@@ -1,7 +1,7 @@
-const Task = require('../models/task')
-const Section = require('../models/section')
+import Task from '../models/task.mjs'
+import Section from '../models/section.mjs'
 
-exports.create = async (req, res) => {
+export const create = async (req, res) => {
   const { sectionId } = req.body
   try {
     const section = await Section.findById(sectionId)
@@ -17,7 +17,7 @@ exports.create = async (req, res) => {
   }
 }
 
-exports.update = async (req, res) => {
+export const update = async (req, res) => {
   const { taskId } = req.params
   try {
     const task = await Task.findByIdAndUpdate(
@@ -30,7 +30,7 @@ exports.update = async (req, res) => {
   }
 }
 
-exports.delete = async (req, res) => {
+export const _delete = async (req, res) => {
   const { taskId } = req.params
   try {
     const currentTask = await Task.findById(taskId)
@@ -48,7 +48,7 @@ exports.delete = async (req, res) => {
   }
 }
 
-exports.updatePosition = async (req, res) => {
+export const updatePosition = async (req, res) => {
   const {
     resourceList,
     destinationList,
